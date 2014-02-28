@@ -1,0 +1,7 @@
+.roo-block {
+
+    .nested {
+        border: 0;
+    }
+
+}
