@@ -27,4 +27,8 @@ describe('css-roole', function () {
         css['bundles/css-only/css-only.css'].must.include('.css-block');
         css['bundles/roo-only/roo-only.css'].must.include('.roo-block');
     });
+
+    it('must relative image urls', function () {
+        css['bundles/css-only/css-only.css'].must.include('../../blocks/css-block/css-block.png');
+    });
 });
