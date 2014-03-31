@@ -30,8 +30,10 @@ module.exports = require('enb/techs/css').buildFlow()
     .builder(function (sourceFiles) {
         var preprocessor = this._getCssPreprocessor();
         var node = this.node;
+        var indent = '    ';
         var imports = {};
         var options = {
+            indent: indent,
             imports: imports,
             base: node.getPath()
         };
@@ -50,7 +52,6 @@ module.exports = require('enb/techs/css').buildFlow()
                 return rooleCompile(sources.join('\n'), options);
             })
             .fail(function (err) {
-                var indent = '    ';
                 var message = err.message;
 
                 if (typeof err.context === 'function') {
