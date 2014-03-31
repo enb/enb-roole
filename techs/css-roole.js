@@ -16,6 +16,9 @@
  * nodeConfig.addTech(require('enb-roole/techs/css-roole'));
  * ```
  */
+var path = require('path');
+var vow = require('vow');
+var vfs = require('enb/lib/fs/async-fs');
 var roole = require('roole');
 var vowNode = require('vow-node');
 var rooleCompile = vowNode.promisify(roole.compile);
@@ -25,20 +28,36 @@ module.exports = require('enb/techs/css').buildFlow()
     .target('target', '?.css')
     .useFileList(['css', 'roo'])
     .builder(function (sourceFiles) {
+        var preprocessor = this._getCssPreprocessor();
         var node = this.node;
+        var imports = {};
         var options = {
+            imports: imports,
             base: node.getPath()
         };
-        var source = sourceFiles.map(function (file) {
-            return '@import "' + node.relativePath(file.fullname) + '";';
-        }).join('\n');
 
-        return this._processCss(source, node.resolvePath(this._target))
-            .then(function (source) {
-                return rooleCompile(source, options);
+        return vow.all(
+                sourceFiles.map(function (file) {
+                    return vfs.read(file.fullname)
+                        .then(function (source) {
+                            imports[file.fullname] = preprocessor._processUrls(source.toString(), file.fullname);
+
+                            return '@import "' + node.relativePath(file.fullname) + '";';
+                        });
+                })
+            )
+            .then(function (sources) {
+                return rooleCompile(sources.join('\n'), options);
             })
             .fail(function (err) {
-                throw new Error(err);
+                var indent = '    ';
+                var message = err.message;
+
+                if (typeof err.context === 'function') {
+                    message += ' at ./' + path.relative(node._root, err.loc.filename) + '\n' + err.context(indent);
+                }
+
+                throw new SyntaxError(message);
             });
     })
     .createTech();
