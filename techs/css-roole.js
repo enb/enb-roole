@@ -29,11 +29,14 @@ module.exports = require('enb/techs/css').buildFlow()
         var options = {
             base: node.getPath()
         };
-        var css = sourceFiles.map(function (file) {
+        var source = sourceFiles.map(function (file) {
             return '@import "' + node.relativePath(file.fullname) + '";';
         }).join('\n');
 
-        return rooleCompile(css, options)
+        return this._processCss(source, node.resolvePath(this._target))
+            .then(function (source) {
+                return rooleCompile(source, options);
+            })
             .fail(function (err) {
                 throw new Error(err);
             });
