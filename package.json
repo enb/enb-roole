@@ -2,7 +2,7 @@
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "description": "ENB Roole techs",
   "name": "enb-roole",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": "git://github.com/enb-make/enb-roole",
   "homepage": "https://github.com/enb-make/enb-roole",
   "bugs": "https://github.com/enb-make/enb-roole/issues",
