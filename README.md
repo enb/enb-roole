@@ -1,4 +1,4 @@
-enb-roole [![NPM version](https://badge.fury.io/js/enb-roole.png)](http://badge.fury.io/js/enb-roole) [![Build Status](https://travis-ci.org/enb-make/enb-roole.png?branch=master)](https://travis-ci.org/enb-make/enb-roole) [![Dependency Status](https://gemnasium.com/enb-make/enb-roole.png)](https://gemnasium.com/enb-make/enb-roole)
+enb-roole [![NPM version](https://badge.fury.io/js/enb-roole.svg)](http://badge.fury.io/js/enb-roole) [![Build Status](https://travis-ci.org/enb-make/enb-roole.svg?branch=master)](https://travis-ci.org/enb-make/enb-roole) [![Dependency Status](https://gemnasium.com/enb-make/enb-roole.svg)](https://gemnasium.com/enb-make/enb-roole)
 =========
 
 Поддержка [`Roole`](https://github.com/curvedmark/roole) для ENB.
@@ -21,6 +21,7 @@ npm install --save-dev enb-roole
 
 * *String* **target** — Результирующий таргет. По умолчанию — `?.css`.
 * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов (его предоставляет технология `files`). По умолчанию — `?.files`.
+* *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['css', 'roo']`.
 
 **Пример**
 
