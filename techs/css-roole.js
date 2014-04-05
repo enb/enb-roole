@@ -36,7 +36,8 @@ module.exports = require('enb/techs/css').buildFlow()
         var options = {
             indent: indent,
             imports: imports,
-            base: node.getPath()
+            base: node.getPath(),
+            prefixes: this._options && this._options.prefixes || []
         };
 
         return vow.all(
