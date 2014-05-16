@@ -35,10 +35,8 @@ module.exports = require('enb/techs/css').buildFlow()
         var preprocessor = this._getCssPreprocessor();
         var node = this.node;
         var indent = '    ';
-        var imports = {};
         var options = {
             indent: indent,
-            imports: imports,
             base: node.getPath(),
             prefixes: this._options && this._options.prefixes || []
         };
@@ -47,9 +45,7 @@ module.exports = require('enb/techs/css').buildFlow()
                 sourceFiles.map(function (file) {
                     return vfs.read(file.fullname)
                         .then(function (source) {
-                            imports[file.fullname] = preprocessor._processUrls(source.toString(), file.fullname);
-
-                            return '@import "' + node.relativePath(file.fullname) + '";';
+                            return preprocessor._processUrls(source.toString(), file.fullname);
                         });
                 })
             )
