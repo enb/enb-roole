@@ -1,0 +1,5 @@
+.roo-block-with-import {
+    .sub {
+        color: red;
+    }
+}

@@ -1,0 +1,9 @@
+.roo-block-with-import__elem {
+
+    .nested {
+        border: 1px solid red;
+    }
+
+}
+
+@import "sub.roo";
