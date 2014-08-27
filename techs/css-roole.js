@@ -45,7 +45,7 @@ module.exports = require('enb/techs/css').buildFlow()
                 sourceFiles.map(function (file) {
                     return vfs.read(file.fullname)
                         .then(function (source) {
-                            return preprocessor._processUrls(source.toString(), file.fullname);
+                            return preprocessor.preprocess(source.toString(), file.fullname);
                         });
                 })
             )
