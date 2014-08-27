@@ -39,6 +39,10 @@
     "jscs": "1.4.5"
   },
   "scripts": {
-    "test": "make validate"
+    "test": "npm run lint && npm run test-techs",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "test-techs": "npm run clean && npm run build && mocha test/func",
+    "build": "enb -d examples/silly make",
+    "clean": "enb -d examples/silly make clean"
   }
 }
