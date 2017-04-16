@@ -44,6 +44,13 @@ module.exports = require('enb/techs/css').buildFlow()
         return vow.all(
                 sourceFiles.map(function (file) {
                     return vfs.read(file.fullname)
+                        // resolve paths for roole imports
+                        .then(function (source) {
+                            return source.toString().replace(/@import\s*["']?([^"'\)]+)["']?\s*;/g, function (s, url) {
+                                return url.indexOf('/') === 0 ? s :
+                                    '@import "' + preprocessor._resolveCssUrl(url, file.fullname) + '";';
+                            });
+                        })
                         .then(function (source) {
                             return preprocessor.preprocess(source.toString(), file.fullname);
                         });
